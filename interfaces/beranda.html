@@ -279,7 +279,7 @@
                                 </div>
                                 <div class="block-content block-content-full text-center">
                                     <!-- Lines Chart Container -->
-                                    <canvas class="js-chartjs-lines"></canvas>
+                                    <canvas id="chart1"></canvas>
                                 </div>
                             </div>
                             <!-- END Lines Chart -->
@@ -297,7 +297,7 @@
                                 </div>
                                 <div class="block-content block-content-full text-center">
                                     <!-- Pie Chart Container -->
-                                    <canvas class="js-chartjs-pie"></canvas>
+                                    <canvas id="chart2"></canvas>
                                 </div>
                             </div>
                             <!-- END Pie Chart -->
@@ -470,6 +470,53 @@
 
         <!-- Page JS Code -->
         <script src="../public/assets/js/pages/be_tables_datatables.min.js"></script>
+
+        <script>
+            var myChart = new Chart($('#chart1'), {
+                type: 'line',
+                data: {
+                    labels: ['Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus'],
+                    datasets: [
+                        {
+                            label: 'Produksi',
+                            data: [12, 19, 3, 5, 2, 3],
+                            borderColor : 'rgba(255, 0, 0, 0.5)',
+                            backgroundColor : 'rgba(255, 0, 0, 0.5)',
+                            fill : false
+                        },
+                        {
+                            label: 'Pemasaran',
+                            data: [2, 10, 15, 6, 7, 3],
+                            borderColor : 'rgba(0, 255, 0, 0.5)',
+                            backgroundColor : 'rgba(0, 255, 0, 0.5)',
+                            fill : false
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+            var myChart2 = new Chart($('#chart2'), {
+                type: 'pie',
+                data: {
+                    labels: ['Produksi', 'Pemasaran', 'Keuangan'],
+                    datasets: [
+                        {
+                            data: [10, 20, 30],
+                            backgroundColor: ["#0074D9", "#FF4136", "#2ECC40"]
+                        }
+                    ]
+                }
+            });
+        </script>
         
 
     </body>
