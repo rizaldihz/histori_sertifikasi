@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{%block title%}Tambah Sertifikasi{%endblock%}
+{%load static%}
+{% block morecss %}
+<link rel="stylesheet" href="{% static 'assets/js/plugins/datatables/dataTables.bootstrap4.css' %}">
+<link rel="stylesheet" href="{% static 'assets/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/js/plugins/select2/css/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2 class="content-heading">Tambah Sertifikasi</h2>
+<!-- Dynamic Table Full -->
+<div class="block">
+    <div class="block-header block-header-default">
+        <h3 class="block-title">Data Sertifikasi</h3>
+        <div class="block-options">
+            <button type="button" class="btn btn-block-option btn-primary" data-toggle="modal" data-target="#modal-top">
+                <i class="fa fa-plus"></i> Import Data
+            </button>
+            <a href="{% url 'sertifikasi:daftar-sertifikasi' %}" class="btn btn-block-option btn-primary">
+                Lihat Daftar Sertifikasi
+            </a>
+        </div>
+    </div>
+    <div class="block-content block-content-full">
+        <form action="be_forms_elements_bootstrap.html" method="post" onsubmit="return false;"></form>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="example-nf-email">Nama</label>
+                    <select class="js-select2 form-control" id="example-select24" name="example-nf-email" data-placeholder="Nama..">
+                        <option></option>
+                        <option value="1">Wasis Pintardi</option>
+                        <option value="2">Yanuar Priatna</option>
+                        <option value="2">Budi Prayetno</option>
+                        <option value="2">Gatot Santoso SH</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="example-nf-email">NIK</label>
+                    <select class="js-select2 form-control" id="example-select25" name="example-nf-email" data-placeholder="NIK..">
+                        <option></option>
+                        <option value="1">T242942</option>
+                        <option value="2">T242924</option>
+                        <option value="2">T242854</option>
+                        <option value="2">T252443</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="example-nf-email">Unit Kerja</label>
+                    <select class="js-select2 form-control" id="example-select22" name="example-nf-email" data-placeholder="Unit Kerja..">
+                        <option></option>
+                        <option value="1">Inspeksi Teknik</option>
+                        <option value="2">Proses & Pengelolaan Energi</option>
+                        <option value="1">Pemeliharaan III</option>
+                        <option value="2">Fabrikasi</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="example-nf-email">Topik</label>
+                    <input type="text" class="js-autocomplete form-control" id="example-autocomplete1" name="example-autocomplete1" placeholder="Topik..">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="example-nf-email">Tipe</label>
+                    <select class="js-select2 form-control" id="example-select21" name="example-nf-email" data-placeholder="Tipe..">
+                        <option></option>
+                        <option value="1">BNSP</option>
+                        <option value="2">Non-BNSP</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="example-nf-email">Penyelenggara</label>
+                    <select class="js-select2 form-control" id="example-select29" name="example-nf-email" data-placeholder="Penyelenggara..">
+                        <option></option>
+                        <option value="1">NDT UT, MT, PT Level I</option>
+                        <option value="2">Vibration ISO 1 (Mobius Level 1)</option>
+                        <option value="1">Petugas Pengambil Contoh</option>
+                        <option value="2">Auditor Energi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="example-nf-email">Bidang</label>
+                    <select class="js-select2 form-control" id="example-select211" name="example-nf-email" data-placeholder="Bidang..">
+                        <option></option>
+                        <option value="1">BNSP</option>
+                        <option value="2">Non-BNSP</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="example-nf-email">Skema</label>
+                    <select class="js-select2 form-control" id="example-select219" name="example-nf-email" data-placeholder="Skema..">
+                        <option></option>
+                        <option value="1">NDT UT, MT, PT Level I</option>
+                        <option value="2">Vibration ISO 1 (Mobius Level 1)</option>
+                        <option value="1">Petugas Pengambil Contoh</option>
+                        <option value="2">Auditor Energi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-20">
+                <div class="form-group col-md-6">
+                    <label for="example-nf-email">Mulai Berlaku</label>
+                    <input type="text" class="js-datepicker form-control" id="example-datepicker1" name="example-datepicker1" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd/mm/yy" placeholder="dd/mm/yy">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="example-nf-email">Akhir Berlaku</label>
+                    <input type="text" class="js-datepicker form-control" id="example-datepicker2" name="example-datepicker2" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd/mm/yy" placeholder="dd/mm/yy">
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="example-nf-password"></label>
+                    <button type="submit" class="btn btn-alt-primary">Simpan</button>
+                </div>
+            </div>
+        </form> 
+    </div>
+</div>
+<!-- END Dynamic Table Full -->
+<div class="modal fade" id="modal-top" tabindex="-1" role="dialog" aria-labelledby="modal-top" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-top" role="document">
+        <div class="modal-content">
+            <form action="{% url 'sertifikasi:tambah-sertifikasi' %}" method="post" enctype='multipart/form-data'>
+            {% csrf_token %}
+            <div class="block block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark">
+                    <h3 class="block-title">Import Sertifikasi</h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                            <i class="si si-close"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="block-content">
+                        <div class="form-group">
+                            <label for="example-nf-email">Pilih file Excel</label>
+                            <input type="file" title="Upload excel file" name="excel_file" class="form-control" required="required">
+                        </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-alt-secondary">Import</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block morejs %}
+<script src="{% static 'assets/js/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/datatables/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'assets/js/pages/be_tables_datatables.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/select2/js/select2.full.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.js' %}"></script>
+<script src="{% static 'assets/js/pages/be_forms_plugins.min.js' %}"></script>
+
+<script>
+    $('.datatable').DataTable();
+    $(function(){ Codebase.helpers(['datepicker', 'select2']); });
+</script>
+{% endblock %}

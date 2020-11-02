@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{%block title%}Pivot Laporan{%endblock%}
+{%load static%}
+{% block morecss %}
+<link rel="stylesheet" href="{% static 'assets/js/plugins/datatables/dataTables.bootstrap4.css' %}">
+<link rel="stylesheet" href="{% static 'assets/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2 class="content-heading">Pivot Table</h2>
+<!-- Dynamic Table Full -->
+<div class="block">
+    <div class="block-header block-header-default">
+        <h3 class="block-title">Pivot Tabel per <small>13 Oktober 2020</small></h3>
+    </div>
+    <div class="block-content block-content-full">
+        <h6>Filter Data</h6>
+        <form id="filter" action="{% url 'laporan:filter-laporan-grafik' %}" method="get">
+            {% csrf_token %}
+            <div class="row mb-20">
+                <div class="form-group col-md-4">
+                    <label for="example-nf-email">Mulai</label>
+                    <input id="mulai" type="text" class="js-datepicker form-control" id="example-datepicker1" name="mulai" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd-mm-yyyy" placeholder="dd/mm/yyyy">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="example-nf-email">Akhir</label>
+                    <input id="hingga" type="text" class="js-datepicker form-control" id="example-datepicker2" name="hingga" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd-mm-yyyy" placeholder="dd/mm/yyyy">
+                </div>
+                <div class="form-group col-md-12">
+                    <button type="submit" class="btn btn-alt-primary">Filter</button>
+                    <button type="button" class="btn btn-alt-primary" id="reset" >Hapus Filter</button>
+                </div>
+            </div>
+        </form>
+        <table class="table table-bordered table-striped table-vcenter datatable">
+            <thead>
+                <tr>
+                    <th style="width: 50px;"></th>
+                    <th style="width: 150px;">NIK</th>
+                    <th style="width: 45%;">Nama</th>
+                    <th style="width: 25%;">Jumlah Sertifikat</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- END Dynamic Table Full -->
+{% endblock %}
+{% block morejs %}
+<script src="{% static 'assets/js/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/datatables/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'assets/js/pages/be_tables_datatables.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+
+<script>
+$(document).ready(function() {
+    $(function(){ Codebase.helpers(['datepicker', 'select2']); });
+    function initTB(extra){
+        if(extra){
+            params = {
+                url : "{% url 'laporan:query-laporan' %}",
+                data : function(d){
+                    d.mulai = $('#mulai').val(),
+                    d.hingga = $('#hingga').val()
+                }
+            }
+            $('.datatable').DataTable().destroy();
+        }
+        else{
+            params = {
+                url : "{% url 'laporan:query-laporan' %}"
+            }
+        }
+        var table = $('.datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax : params,
+            columnDefs: [
+            {
+                    name: 'nomor',
+                    orderable: false,
+                    searchable: false,
+                    targets:[0],
+                    width: '50px',
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                        }  
+                },
+                {
+                    name: 'nik_pegawai',
+                    orderable: true,
+                    searchable: true,
+                    width: '150px',
+                    targets: [1]
+                },
+                {
+                    name: 'nama_pegawai',
+                    orderable: true,
+                    searchable: true,
+                    width: '45%',
+                    targets: [2]
+                },
+                {
+                    name: 'jumlah',
+                    orderable: true,
+                    searchable: false,
+                    width: '25%',
+                    targets: [3]
+                }
+            ],
+            order: [[ 1, "asc" ]]
+        });
+        return table;
+    }
+    var tabel1 = initTB(false);
+    var form = $('#filter');
+    form.on('submit',function(e){
+        e.preventDefault();
+        initTB(true);
+        return false;
+    });
+    $('#reset').on('click',function(){
+        $('.datatable').DataTable().destroy();
+        $('#mulai').val("");;
+        $('#hingga').val("");;
+        initTB(false);
+    });
+});
+</script>
+{% endblock %}

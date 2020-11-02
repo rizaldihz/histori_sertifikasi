@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{%block title%}Beranda{%endblock%}
+{%load static%}
+{% block morecss %}
+<link rel="stylesheet" href="{% static 'assets/js/plugins/datatables/dataTables.bootstrap4.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2 class="content-heading">Beranda Sertifikasi</h2>
+<div class="row justify-content-md-center">
+    <div class="col-xl-12">
+        <div class="block">
+            <div class="block-header block-header-default">
+                <h3 class="block-title">Asesi Per-Bidang</h3>
+                <div class="block-options">
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                        <i class="si si-refresh"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="block-content block-content-full text-center">
+                <canvas id="chart1"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8">
+        <div class="block">
+            <div class="block-header block-header-default">
+                <h3 class="block-title">Assessor Aktif</h3>
+                <div class="block-options">
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                        <i class="si si-refresh"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="block-content block-content-full text-center">
+                <canvas id="chart2"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block morejs %}
+<script src="{% static 'assets/js/plugins/chartjs/Chart.bundle.min.js' %}"></script>
+<script src="{% static 'assets/js/pages/be_comp_charts.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/datatables/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'assets/js/pages/be_tables_datatables.min.js' %}"></script>
+
+<script>
+    $.ajax({
+        url : '{% url "sertifikasi:chart-query-sertifikasi" %}',
+        type : 'GET',
+        data : {'chart':'line'},
+        success : function(data){
+            var myChart = new Chart($('#chart1'), {
+                type: 'line',
+                data: {
+                    labels: data.labels,
+                    datasets: data.datasets
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    legend: {
+                        position : 'bottom'
+                    }
+                }
+            });
+        }
+    });
+
+    $.ajax({
+        url : '{% url "sertifikasi:chart-query-sertifikasi" %}',
+        type : 'GET',
+        data : {'chart':'pie'},
+        success : function(data){
+            var myChart2 = new Chart($('#chart2'), {
+                type: 'pie',
+                data: {
+                    labels: data.labels,
+                    datasets: [
+                        {
+                            data: data.data,
+                            backgroundColor: data.color
+                        }
+                    ]
+                },
+                options:{
+                    legend: {
+                        position : 'right'
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

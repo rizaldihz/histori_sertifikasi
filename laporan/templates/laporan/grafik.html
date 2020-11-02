@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+{%block title%}Grafik Histori{%endblock%}
+{%load static%}
+{% block morecss %}
+<link rel="stylesheet" href="{% static 'assets/js/plugins/datatables/dataTables.bootstrap4.css' %}">
+<link rel="stylesheet" href="{% static 'assets/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2 class="content-heading">Grafik Sertifikasi</h2>
+<div class="row justify-content-md-center">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-header block-header-default">
+                <h3 class="block-title">Asesi Per-Bidang</h3>
+                <div class="block-options">
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                        <i class="si si-refresh"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="block-content block-content-full">
+                <h6>Filter Data</h6>
+                <form id="filter" action="{% url 'laporan:filter-laporan-grafik' %}" method="post">
+                    {% csrf_token %}
+                    <div class="row mb-20">
+                        <div class="form-group col-md-4">
+                            <label for="example-nf-email">Mulai</label>
+                            <input id="mulai" type="text" class="js-datepicker form-control" id="example-datepicker1" name="mulai" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd-mm-yyyy" placeholder="dd/mm/yyyy">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="example-nf-email">Akhir</label>
+                            <input id="hingga" type="text" class="js-datepicker form-control" id="example-datepicker2" name="hingga" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd-mm-yyyy" placeholder="dd/mm/yyyy">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <button type="submit" class="btn btn-alt-primary">Filter</button>
+                            <button type="button" class="btn btn-alt-primary" id="reset" >Hapus Filter</button>
+                        </div>
+                    </div>
+                </form>
+                <canvas id="chart1"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="block">
+            <div class="block-header block-header-default">
+                <h3 class="block-title">Sertifikat Kompetensi Akumulatif</h3>
+                <div class="block-options">
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                        <i class="si si-refresh"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="block-content block-content-full text-center">
+                <canvas id="chart2"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="block">
+            <div class="block-header block-header-default">
+                <h3 class="block-title">Assessor Aktif</h3>
+                <div class="block-options">
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                        <i class="si si-refresh"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="block-content block-content-full text-center">
+                <canvas id="chart3"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block morejs %}
+<script src="{% static 'assets/js/plugins/chartjs/Chart.bundle.min.js' %}"></script>
+<script src="{% static 'assets/js/pages/be_comp_charts.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/datatables/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'assets/js/pages/be_tables_datatables.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+
+<script>
+$(document).ready(function(){
+    var myChart = null;
+    var myChart2 = null;
+    var myChart3 = null;
+    $(function(){ Codebase.helpers(['datepicker', 'select2']); });
+    function isMobileDevice(){
+        return ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    }
+    $.ajax({
+        url : '{% url "laporan:chart-query-laporan" %}',
+        type : 'GET',
+        data : {'chart':'line-1'},
+        success : function(data){
+            myChart = new Chart($('#chart1'), {
+                type: 'line',
+                data: {
+                    labels: data.labels,
+                    datasets: data.datasets
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    legend: {
+                        display: !isMobileDevice(),
+                        position : 'bottom'
+
+                    },
+                    responsive : true,
+                }
+            });
+        }
+    });
+
+    $.ajax({
+        url : '{% url "laporan:chart-query-laporan" %}',
+        type : 'GET',
+        data : {'chart':'line-2'},
+        success : function(data){
+            myChart2 = new Chart($('#chart2'), {
+                type: 'line',
+                data: {
+                    labels: data.labels,
+                    datasets: data.datasets
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    legend: {
+                        display: !isMobileDevice(),
+                        position : 'bottom'
+
+                    },
+                    responsive : true,
+                }
+            });
+        }
+    });
+
+    $.ajax({
+        url : '{% url "laporan:chart-query-laporan" %}',
+        type : 'GET',
+        data : {'chart':'pie'},
+        success : function(data){
+            myChart3 = new Chart($('#chart3'), {
+                type: 'pie',
+                data: {
+                    labels: data.labels,
+                    datasets: [
+                        {
+                            data: data.data,
+                            backgroundColor: data.color
+                        }
+                    ]
+                },
+                options:{
+                    legend: {
+                        display: !isMobileDevice(),
+                        position : 'right'
+                    },
+                    responsive : true
+                }
+            });
+        }
+    });
+    
+    var form = $('#filter');
+    form.on('submit',function(e){
+        e.preventDefault();
+        $.ajax({
+            type: form.attr('method'),
+            url: form.attr('action'),
+            data: form.serialize(),
+            success: function (data) {
+                myChart.data.labels = data[0].labels;
+                myChart.data.datasets = data[0].datasets;
+                myChart.update()
+
+                myChart2.data.labels = data[1].labels;
+                myChart2.data.datasets = data[1].datasets;
+                myChart2.update()
+            }
+        });
+        return false;
+    });
+    $('#reset').on('click',function(){
+        $('#mulai').val("");;
+        $('#hingga').val("");;
+        $.ajax({
+            url : '{% url "laporan:chart-query-laporan" %}',
+            type : 'GET',
+            data : {'chart':'line-1'},
+            success : function(data){
+                myChart.data.labels = data.labels;
+                myChart.data.datasets = data.datasets;
+                myChart.update()
+            }
+        });
+        
+        $.ajax({
+            url : '{% url "laporan:chart-query-laporan" %}',
+            type : 'GET',
+            data : {'chart':'line-2'},
+            success : function(data){
+                myChart.data.labels = data.labels;
+                myChart.data.datasets = data.datasets;
+                myChart.update()
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

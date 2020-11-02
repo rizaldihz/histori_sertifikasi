@@ -1,0 +1,68 @@
+<nav id="sidebar">
+    <div class="sidebar-content">
+        <div class="content-header content-header-fullrow px-15">
+            <div class="content-header-section sidebar-mini-visible-b">
+                <span class="content-header-item font-w700 font-size-xl float-left animated fadeIn">
+                    <span class="text-dual-primary-dark">c</span><span class="text-primary">b</span>
+                </span>
+            </div>
+            <div class="content-header-section text-center align-parent sidebar-mini-hidden">
+                <button type="button" class="btn btn-circle btn-dual-secondary d-lg-none align-v-r" data-toggle="layout" data-action="sidebar_close">
+                    <i class="fa fa-times text-danger"></i>
+                </button>
+                <div class="content-header-item">
+                    <a class="link-effect font-w700" href="index.html">
+                        <span class="font-size-xl text-dual-primary-dark">Histori </span><span class="font-size-xl text-primary">Sertifikasi</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="content-side content-side-full">
+            <ul class="nav-main">
+                <li>
+                    <a href="{% url 'beranda' %}"><i class="si si-book-open"></i><span class="sidebar-mini-hide">Beranda</span></a>
+                </li>
+                <li>
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="fa fa-database"></i><span class="sidebar-mini-hide">Master Data</span></a>
+                    <ul>    
+                        <li>
+                            <a href="{% url 'penyelenggara:daftar-penyelenggara' %}"><span class="sidebar-mini-hide">Daftar Penyelenggara</span></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'bidang:daftar-bidang' %}"><span class="sidebar-mini-hide">Daftar Bidang</span></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'skema:daftar-skema' %}"><span class="sidebar-mini-hide">Daftar Skema</span></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'pegawai:daftar-pegawai' %}"><span class="sidebar-mini-hide">Daftar User</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-badge"></i><span class="sidebar-mini-hide">Histori Sertifikasi</span></a>
+                    <ul>    
+                        <li>
+                            <a href="{% url 'sertifikasi:daftar-sertifikasi' %}"><span class="sidebar-mini-hide">Histori Sertifikasi</span></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'sertifikasi:tambah-sertifikasi' %}"><span class="sidebar-mini-hide">Tambah Data Baru</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="fa fa-bar-chart"></i><span class="sidebar-mini-hide">Laporan Sertifikasi</span></a>
+                    <ul>    
+                        <li>
+                            <a href="{% url 'laporan:daftar-grafik' %}"><span class="sidebar-mini-hide">Grafik Laporan</span></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'laporan:daftar-pivot' %}"><span class="sidebar-mini-hide">Pivot Data</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-main-heading"><span class="sidebar-mini-visible">UI</span><span class="sidebar-mini-hidden">Menu Sidebar</span></li>
+            </ul>
+        </div>
+    </div>
+</nav>

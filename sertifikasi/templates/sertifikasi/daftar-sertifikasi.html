@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{%block title%}Daftar Sertifikasi{%endblock%}
+{%load static%}
+{% block morecss %}
+<link rel="stylesheet" href="{% static 'assets/js/plugins/datatables/dataTables.bootstrap4.css' %}">
+<link rel="stylesheet" href="{% static 'assets/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/js/plugins/select2/css/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/js/plugins/datatables/buttons-bs4/buttons.bootstrap4.min.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2 class="content-heading">Histori Sertifikasi</h2>
+<!-- Dynamic Table Full -->
+<div class="block">
+    <div class="block-header block-header-default">
+        <h3 class="block-title">Data Sertifikasi <small>per 20 September 2020</small></h3>
+        <div class="block-options">
+            <a href="{% url 'sertifikasi:tambah-sertifikasi' %}" class="btn btn-block-option btn-primary">
+                <i class="fa fa-plus"></i> Tambah Data Baru
+            </a>
+        </div>
+    </div>
+    <div class="block-content block-content-full">
+        <h6>Filter Data</h6>
+        <form action="be_forms_elements_bootstrap.html" method="post" onsubmit="return false;"></form>
+            <div class="row mb-20">
+                <div class="form-group col-md-4">
+                    <label for="example-nf-email">Tipe</label>
+                    <select class="js-select2 form-control" id="example-select21" name="example-nf-email" data-placeholder="Tipe..">
+                        <option></option>
+                        <option value="1">BNSP</option>
+                        <option value="2">Non-BNSP</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="example-nf-email">Unit Kerja</label>
+                    <select class="js-select2 form-control" id="example-select22" name="example-nf-email" data-placeholder="Unit Kerja..">
+                        <option></option>
+                        <option value="1">Inspeksi Teknik</option>
+                        <option value="2">Proses & Pengelolaan Energi</option>
+                        <option value="1">Pemeliharaan III</option>
+                        <option value="2">Fabrikasi</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="example-nf-email">Topik</label>
+                    <select class="js-select2 form-control" id="example-select23" name="example-nf-email" data-placeholder="Topik..">
+                        <option></option>
+                        <option value="1">NDT UT, MT, PT Level I</option>
+                        <option value="2">Vibration ISO 1 (Mobius Level 1)</option>
+                        <option value="1">Petugas Pengambil Contoh</option>
+                        <option value="2">Auditor Energi</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="example-nf-email">Mulai Berlaku</label>
+                    <input type="text" class="js-datepicker form-control" id="example-datepicker1" name="example-datepicker1" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd/mm/yy" placeholder="dd/mm/yy">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="example-nf-email">Akhir Berlaku</label>
+                    <input type="text" class="js-datepicker form-control" id="example-datepicker2" name="example-datepicker2" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd/mm/yy" placeholder="dd/mm/yy">
+                </div>
+                <div class="form-group col-md-6">
+                    <button type="submit" class="btn btn-alt-primary">Filter</button>
+                    <button type="submit" class="btn btn-alt-primary">Hapus Filter</button>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="example-nf-password"></label>
+                    <button type="submit" class="btn btn-alt-primary">Export</button>
+                </div>
+            </div>
+        </form>
+        <!-- DataTables functionality is initialized with .js-dataTable-full class in js/pages/be_tables_datatables.min.js which was auto compiled from _es6/pages/be_tables_datatables.js -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-vcenter datatable">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th class="text-center" style="width: 250px;">Nama</th>
+                        <th class="text-center" style="width: 60px;">NIK</th>
+                        <th class="text-center" style="width: 200px;">Unit Kerja</th>
+                        <th class="text-center" style="width: 200px;">Topik</th>
+                        <th class="text-center" style="width: 70px;">Tipe</th>
+                        <th class="text-center" style="width: 180px;">Penyelenggara</th>
+                        <th class="text-center" style="width: 180px;">Bidang</th>
+                        <th class="text-center" style="width: 180px;">Skema</th>
+                        <th class="text-center" style="width: 180px;">Mulai Pelaksanaan</th>
+                        <th class="text-center" style="width: 180px;">Akhir Pelaksanaan</th>
+                        <th class="text-center" style="width: 180px;">Mulai Berlaku</th>
+                        <th class="text-center" style="width: 180px;">Akhir Berlaku</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div> 
+    </div>
+</div>
+<!-- END Dynamic Table Full -->
+{% endblock %}
+{% block morejs %}
+<script src="{% static 'assets/js/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/datatables/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/datatables/buttons/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/datatables/buttons/buttons.colVis.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/datatables/buttons-bs4/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'assets/js/pages/be_tables_datatables.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/select2/js/select2.full.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+
+<script>
+    $(document).ready(function(){
+        $(function(){ Codebase.helpers(['datepicker', 'select2']); });
+        var tabel1 = $('.datatable').DataTable({
+            dom: 'lBfrtip',
+            processing: true,
+            serverSide: true,
+            ajax: "{% url 'sertifikasi:query-sertifikasi' %}",
+            columnDefs: [
+                {
+                    name: 'nomor',
+                    orderable: false,
+                    searchable: false,
+                    targets:[0],
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                },
+                {
+                    name: 'nama',
+                    orderable: true,
+                    searchable: true,
+                    targets: [1],
+                    width: '250px'
+                },
+                {
+                    name: 'nik',
+                    orderable: true,
+                    searchable: true,
+                    targets: [2],
+                    width: '60px'
+                },
+                {
+                    name: 'unit',
+                    orderable: true,
+                    searchable: true,
+                    targets: [3],
+                    width: '200px'
+                },
+                {
+                    name: 'topik_sertifikasi',
+                    orderable: true,
+                    searchable: true,
+                    targets: [4],
+                    width: '200px'
+                },
+                {
+                    name: 'tipe',
+                    orderable: true,
+                    searchable: true,
+                    targets: [5],
+                    width: '70px'
+                },
+                {
+                    name: 'penyelenggara',
+                    orderable: true,
+                    searchable: true,
+                    targets: [6],
+                    visible: false,
+                    width: '180px'
+                },
+                {
+                    name: 'bidang',
+                    orderable: true,
+                    searchable: true,
+                    targets: [7],
+                    visible: false,
+                    width: '180px'
+                },
+                {
+                    name: 'skema',
+                    orderable: true,
+                    searchable: true,
+                    targets: [8],
+                    visible: false,
+                    width: '180px'
+                },
+                {
+                    name: 'mulai_pelaksanaan',
+                    orderable: true,
+                    searchable: true,
+                    targets: [9],
+                    visible: false,
+                    width: '180px'
+                },
+                {
+                    name: 'akhir_pelaksanaan',
+                    orderable: true,
+                    searchable: true,
+                    targets: [10],
+                    visible: false,
+                    width: '180px'
+                },
+                {
+                    name: 'mulai_berlaku',
+                    orderable: true,
+                    searchable: true,
+                    targets: [11],
+                    width: '180px'
+                },
+                {
+                    name: 'akhir_berlaku',
+                    orderable: true,
+                    searchable: true,
+                    targets: [12],
+                    width: '180px'
+                }
+            ],
+            order: [[ 1, "asc" ]],
+            buttons: [
+                {
+                    extend : 'colvis',
+                    text : 'Aktifkan Kolom',
+                }
+            ]
+        }).columns.adjust().fixedColumns().relayout().responsive.recalc();
+        
+    });
+</script>
+{% endblock %}

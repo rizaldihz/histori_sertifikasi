@@ -1,0 +1,70 @@
+
+<!doctype html>
+<html lang="en" class="no-focus">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        <title>{%block title%}{%endblock%} | Histori Sertifikasi - PT Petrokimia Gresik</title>
+
+        <meta name="robots" content="noindex, nofollow">
+
+        <meta property="og:title" content="Histori Sertifikasi PT Petrokimia Gresik">
+        <meta property="og:site_name" content="HistoriSertifikasi">
+        <meta property="og:description" content="Sistem Informasi untuk data Histori Sertifikasi PT Petrokimia Gresik ">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="">
+        <meta property="og:image" content="">
+
+        <!-- Icons -->
+        <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+        <!-- <link rel="shortcut icon" href="../public/assets/media/favicons/favicon.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="../public/assets/media/favicons/favicon-192x192.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../public/assets/media/favicons/apple-touch-icon-180x180.png"> -->
+        <!-- END Icons -->
+        {%load static%}
+        {%block morecss%}{%endblock%}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,400i,600,700">
+        <link rel="stylesheet" id="css-main" href="{% static 'assets/css/codebase.min.css' %}">
+
+        <link rel="stylesheet" id="css-theme" href="{% static 'assets/css/themes/earth.min.css' %}">
+    </head>
+    <body>
+
+        
+        <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed sidebar-inverse">
+
+            
+            {%include "sidebar.html"%}
+            <!-- END Sidebar -->
+
+            <!-- Header -->
+            {%include "header.html"%}
+            <!-- END Header -->
+
+            <!-- Main Container -->
+            <main id="main-container">
+
+                <!-- Page Content -->
+                <div class="content">
+                    {%block content%}
+                    {%endblock%}
+                </div>
+                <!-- END Page Content -->
+
+            </main>
+            <!-- END Main Container -->
+            
+            <!-- Footer -->
+            {%include "footer.html"%}
+            <!-- END Footer -->
+        </div>
+        <!-- END Page Container -->
+
+        <script type="text/javascript" src="{% static 'assets/js/codebase.core.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'assets/js/codebase.app.min.js' %}"></script>
+
+        {%block morejs%}
+        {%endblock%}
+    </body>
+</html>

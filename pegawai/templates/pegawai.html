@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{%block title%}Pegawai{%endblock%}
+{%load static%}
+{% block morecss %}
+<link rel="stylesheet" href="{% static 'assets/js/plugins/datatables/dataTables.bootstrap4.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2 class="content-heading">Daftar Pegawai</h2>
+<!-- Dynamic Table Full -->
+<div class="block">
+    <div class="block-header block-header-default">
+        <h3 class="block-title">Data Pegawai <small>20 September 2020</small></h3>
+        <div class="block-options">
+            <button type="button" class="btn btn-block-option btn-primary" data-toggle="modal" data-target="#modal-top">
+                <i class="fa fa-plus"></i> Tambah Data Baru
+            </button>
+        </div>
+    </div>
+    <div class="block-content block-content-full">
+        <!-- DataTables functionality is initialized with .js-dataTable-full class in js/pages/be_tables_datatables.min.js which was auto compiled from _es6/pages/be_tables_datatables.js -->
+        <table class="table table-bordered table-striped table-vcenter datatable">
+            <thead>
+                <tr>
+                    <th class="text-center"></th>
+                    <th>Nama</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">1</td>
+                    <td class="font-w600">Teknisi 1 Air Proses dan Air Bersih</td>
+                </tr>
+                <tr>
+                    <td class="text-center">2</td>
+                    <td class="font-w600">Teknisi Mekanik - Klaster Conveyor System</td>
+                    
+                </tr>
+                <tr>
+                    <td class="text-center">3</td>
+                    <td class="font-w600">Asesor Kompetensi</td>
+                </tr>
+                <tr>
+                    <td class="text-center">4</td>
+                    <td class="font-w600">Asesor Kompetensi</td>
+                </tr>
+                <tr>
+                    <td class="text-center">5</td>
+                    <td class="font-w600">Teknisi Mekanik - Klaster Conveyor System</td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- END Dynamic Table Full -->
+<!-- Top Modal -->
+<div class="modal fade" id="modal-top" tabindex="-1" role="dialog" aria-labelledby="modal-top" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-top" role="document">
+        <div class="modal-content">
+            <form action="{% url 'pegawai:tambah-pegawai' %}" method="post" enctype='multipart/form-data'>
+            {% csrf_token %}
+            <div class="block block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark">
+                    <h3 class="block-title">Tambah Pegawai</h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                            <i class="si si-close"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="block-content">
+                        <div class="form-group">
+                            <label for="example-nf-email">Nama Pegawai</label>
+                            <input type="text" class="form-control" id="example-nf-email" name="example-nf-email" placeholder="Masukkan Skema..">
+                        </div>
+                        <div class="form-group">
+                            <label for="example-nf-email">Atau Import dari Excel</label>
+                            <input type="file" title="Upload excel file" name="excel_file" class="form-control" required="required">
+                        </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-alt-secondary">Simpan</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block morejs %}
+<script src="{% static 'assets/js/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/datatables/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'assets/js/pages/be_tables_datatables.min.js' %}"></script>
+
+<script>
+    $('.datatable').DataTable();
+</script>
+{% endblock %}
